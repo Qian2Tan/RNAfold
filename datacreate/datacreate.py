@@ -49,4 +49,4 @@ if __name__ == '__main__':
 
     site_data_09_wt['RNAfold'] = output_list_09_wt
     site_data_09_wt['RNAfold_energy'] = output_energy_09_wt
-    site_data_09_wt.to_csv("own_S08_11.csv")
+    site_data_09_wt.to_csv("own_S09_09_WT.csv")

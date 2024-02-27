@@ -36,6 +36,8 @@ function ajax_function(datatable) {
                     { data: 'start_site', title:'start_site'},
                     { data: 'end_site', title:'end_site'},
                     { data: 'sequence', title:'sequence'},
+                    // { data: 'RNAfold', title:'RNAfold'},
+                    { data: 'RNAfold_energy', title:'RNAfold_energy'},
                     {
                         data: null,
                         title: 'Detail',
@@ -49,10 +51,21 @@ function ajax_function(datatable) {
                 ],
                 "columnDefs": [
                     {
-                        "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                        // "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+                        // "createdCell": function (td, cellData, rowData, row, col) {
+                        //     $(td).addClass('table');
+                        // },
+                        "targets": [9], // sequence 欄位的索引
                         "createdCell": function (td, cellData, rowData, row, col) {
-                            $(td).addClass('sequence');
-                        }
+                            $(td).addClass('sequence'); // 添加 'sequence' 類別名稱
+                        },
+                        // "className": 'monospace', // 添加 'monospace' 類別名稱
+                        // "render": function(data, type, row, meta) {
+                        //     if (type === 'display') {
+                        //         return '<div class="text-monospace text-align-left">' + data + '</div>'; // 使用 text-monospace 和 text-align-left 類別來設定等寬字體和文字對齊方式
+                        //     }
+                        //     return data;
+                        // }
                     },
                 ],
             });
@@ -62,12 +75,14 @@ function ajax_function(datatable) {
 
                 var rowId = $(this).data('id');
                 var rowData = datatable.row(rowId).data();
-                rowIndex = rowData.index;
-                console.log(rowIndex)
+                console.log(rowId)
+                // console.log(rowData)
+                // rowIndex = rowData.index;
+                // console.log(rowIndex)
 
                 var pictureData = new FormData;
                 pictureData.append('version', versionValue); // 將選取的選項值加入到 FormData 中
-                pictureData.append('index', rowIndex);
+                pictureData.append('index', rowId);
 
                 $.ajax({
                     headers: { 'X-CSRFToken': csrf_token },

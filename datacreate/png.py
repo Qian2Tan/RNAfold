@@ -20,10 +20,10 @@ def convert_ps_to_png(ps_file_path, output_png_path):
 
 if __name__ == "__main__":
     # 定義.ps檔案所在的目錄
-    input_folder = "/home/xiangwei/chien/rnafold/datacreate/own_S09_09_WT_pictures"
+    input_folder = "/home/xiangwei/chien/rnafold/datacreate/up45down9_pictures"
 
     # 定義輸出的.png檔案所在的目錄
-    output_folder = "/home/xiangwei/chien/rnafold/datacreate/own_S09_09_WT_pictures_png"
+    output_folder = "/home/xiangwei/chien/rnafold/datacreate/up45down9_pictures_png"
 
     # 遍歷指定目錄下的所有.ps檔案
     for filename in os.listdir(input_folder):

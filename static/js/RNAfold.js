@@ -16,28 +16,32 @@ function ajax_function(datatable) {
         data: selectData,
         success: function (response) {
             tableData = response.site_data
-            datatable = $('#siteTable').DataTable({
-                "lengthChange": true, // 允许用户选择每页显示多少条数据
-                "lengthMenu": [10, 25, 50, 100], // 自定义可选择的每页条数
-                "searching": true, // 關閉搜索功能
-                "scrollX": true,  // 啟用水平滾動
-                "scrollY": '80vh',  // 設置垂直滾動高度，可以更改為您需要的值
-                "scrollCollapse": true,  // 如果內容不足，則隱藏滾動條
-                "paging": true,  // 要啟用分頁才能自訂每頁筆數
+            $('#siteTable').empty();
+
+            var datatableOptions = {
+                "lengthChange": true,
+                "lengthMenu": [10, 25, 50, 100],
+                "searching": true,
+                "scrollX": true,
+                "scrollY": '80vh',
+                "scrollCollapse": true,
+                "paging": true,
                 "data": tableData,
                 "columns": [
-                    { data: 'index', title:'index'},
-                    { data: 'genome_site', title:'genome_site'},
-                    { data: 'direction', title:'direction'},
-                    { data: 'TTS_intensity', title:'TTS_intensity'},
-                    { data: 'TTS_upstream_RNA_coverage', title:'TTS_upstream_RNA_coverage'},
-                    { data: 'TTS_downstream_RNA_coverage', title:'TTS_downstream_RNA_coverage'},
-                    { data: 'source', title:'source'},
-                    { data: 'start_site', title:'start_site'},
-                    { data: 'end_site', title:'end_site'},
-                    { data: 'sequence', title:'sequence'},
-                    // { data: 'RNAfold', title:'RNAfold'},
-                    { data: 'RNAfold_energy', title:'RNAfold_energy'},
+                    { data: 'index', title: 'index' },
+                    { data: 'genome_site', title: 'genome_site' },
+                    { data: 'direction', title: 'direction' },
+                    // { data: 'TTS_intensity', title: 'TTS_intensity' },
+                    // { data: 'TTS_upstream_RNA_coverage', title: 'TTS_upstream_RNA_coverage' },
+                    // { data: 'TTS_downstream_RNA_coverage', title: 'TTS_downstream_RNA_coverage' },
+                    { data: 'source', title: 'source' },
+                    { data: 'start_site', title: 'start_site' },
+                    { data: 'end_site', title: 'end_site' },
+                    { data: 'start_site_modi', title: 'start_site_modi' },
+                    { data: 'end_site_modi', title: 'end_site_modi' },
+                    { data: 'sequence', title: 'sequence' },
+                    { data: 'sequence_modi_prune', title: 'sequence_modi_prune' },
+                    { data: 'RNAfold_energy', title: 'RNAfold_energy' },
                     {
                         data: null,
                         title: 'Detail',
@@ -51,24 +55,66 @@ function ajax_function(datatable) {
                 ],
                 "columnDefs": [
                     {
-                        // "targets": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-                        // "createdCell": function (td, cellData, rowData, row, col) {
-                        //     $(td).addClass('table');
-                        // },
-                        "targets": [9], // sequence 欄位的索引
+                        "targets": [8, 9],
                         "createdCell": function (td, cellData, rowData, row, col) {
-                            $(td).addClass('sequence'); // 添加 'sequence' 類別名稱
+                            $(td).addClass('sequence');
                         },
-                        // "className": 'monospace', // 添加 'monospace' 類別名稱
-                        // "render": function(data, type, row, meta) {
-                        //     if (type === 'display') {
-                        //         return '<div class="text-monospace text-align-left">' + data + '</div>'; // 使用 text-monospace 和 text-align-left 類別來設定等寬字體和文字對齊方式
-                        //     }
-                        //     return data;
-                        // }
                     },
                 ],
-            });
+            };
+
+            // 根據 selectData 的值動態初始化不同的 DataTable
+            if (selectData['version'] === 'up45down9') {
+            
+                $('#siteTable').empty(); // empty in case the columns change
+
+                datatableOptions.data = tableData,
+                // 清除原始的 column 定義
+                datatableOptions.columns = [],
+                // 添加新的 column 定義
+                datatableOptions.columns = [
+                    { data: 'index', title: 'index' },
+                    { data: 'genome_site', title: 'genome_site' },
+                    { data: 'direction', title: 'direction' },
+                    // { data: 'TTS_intensity', title: 'TTS_intensity' },
+                    // { data: 'TTS_upstream_RNA_coverage', title: 'TTS_upstream_RNA_coverage' },
+                    // { data: 'TTS_downstream_RNA_coverage', title: 'TTS_downstream_RNA_coverage' },
+                    // { data: 'source', title: 'source' },
+                    { data: 'start_site', title: 'start_site' },
+                    { data: 'end_site', title: 'end_site' },
+                    { data: 'start_site_modi', title: 'start_site_modi' },
+                    { data: 'end_site_modi', title: 'end_site_modi' },
+                    { data: 'sequence', title: 'sequence' },
+                    { data: 'sequence_modi_prune', title: 'sequence_modi_prune' },
+                    { data: 'TTS_sequence(include_8nt_of_each_flank_sequence)', title: 'TTS_sequence(include_8nt_of_each_flank_sequence)' },
+                    // { data: 'RNAfold_energy', title: 'RNAfold_energy' },
+                    {
+                        data: null,
+                        title: 'Detail',
+                        render: function (data, type, row, meta) {
+                            if (type === 'display') {
+                                return '<button class="btn btn-primary picture-button" data-id="' + meta.row + '">Detail</button>';
+                            }
+                            return '';
+                        }
+                    },
+                ];
+                // 清除原始的 columnDefs 定義
+                datatableOptions.columnDefs = [];
+                // 添加新的 columnDefs 定義
+                datatableOptions.columnDefs = [
+                    {
+                        "targets": [8, 9, 10],
+                        "createdCell": function (td, cellData, rowData, row, col) {
+                            $(td).addClass('sequence');
+                        },
+                    },
+                ];
+            }
+
+            // 初始化 DataTable
+            datatable = $('#siteTable').DataTable(datatableOptions);
+
 
             $('#siteTable tbody').on('click', '.picture-button', function() {
                 var versionValue = $('#version').val(); // 取得選取的選項值

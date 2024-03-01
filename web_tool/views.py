@@ -14,8 +14,26 @@ def read_csv(request):
 
     path = f"/home/xiangwei/chien/rnafold/static/csv_result/{version}.csv"
     site_data = pd.read_csv(path)
-    print(site_data)
+    site_data.fillna('', inplace=True)
+
     site_data['sequence'] = site_data['sequence'] + '<br>' + site_data['RNAfold']
+
+    def combine_columns(row):
+    # 如果 sequence_modi_prune 是 "special case"，則返回原值
+        if row['sequence_modi_prune'] == 'special case' or row['sequence_modi_prune'] == 'no modified':
+            return row['sequence_modi_prune']
+        else:
+            # 否則合併 sequence_modi_prune 和 rnafold_modi_prune
+            return row['sequence_modi_prune'] + '<br>' + row['rnafold_modi_prune']
+
+    # 使用 apply 函式將 combine_columns 函式應用到 DataFrame 的每一行
+    site_data['sequence_modi_prune'] = site_data.apply(lambda row: combine_columns(row), axis=1)
+
+    if version == 'up45down9':
+        site_data['TTS_sequence(include_8nt_of_each_flank_sequence)'] = pd.DataFrame(site_data['TTS_sequence(include_8nt_of_each_flank_sequence)'] +'<br>'+ site_data['predicted_RNA_fold_structure'])
+
+
+    print(site_data)
     dict_site_data = site_data.to_dict(orient='records')
 
     response={

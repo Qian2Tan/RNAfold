@@ -1,22 +1,23 @@
 import os
-from pdf2image import convert_from_path
+# from pdf2image import convert_from_path
+from PIL import Image
 
-def convert_ps_to_png(ps_file_path, output_png_path):
-    # 將.ps檔案轉換為.pdf檔案
-    pdf_file_path = os.path.splitext(ps_file_path)[0] + ".pdf"
-    os.system(f"ps2pdf {ps_file_path} {pdf_file_path}")
+def convert_ps_to_png(filename, output_png_path):
+    img = Image.open(filename)
 
-    # 將.pdf檔案轉換為.png檔案
-    images = convert_from_path(pdf_file_path)
+    # output_png_name = filename.split('.')[0]
+    filename = os.path.basename(filename)
+    filename = filename.split(".")[0]
+    output_png_name = filename.split("/")[-1] + ".png"
 
-    # 保存每一頁的.png檔案
-    for i, image in enumerate(images):
-        png_page_path = f"{output_png_path}_{i + 1}.png"
-        image.save(png_page_path, "PNG")
-        print(f"已轉換: {ps_file_path} -> {png_page_path}")
+    print(output_png_name)
+    img.save(output_png_name)
 
-    # 刪除中間生成的.pdf檔案
-    os.remove(pdf_file_path)
+    try:
+        # 将文件移动到 'pictures' 文件夹
+        os.rename(output_png_name, f"{output_png_path}/{output_png_name}")
+    except FileNotFoundError:
+        pass  # 处理文件不存在的情况
 
 if __name__ == "__main__":
     # 定義.ps檔案所在的目錄
@@ -25,13 +26,28 @@ if __name__ == "__main__":
     # 定義輸出的.png檔案所在的目錄
     output_folder = "/home/xiangwei/chien/rnafold/datacreate/up45down9_pictures_png"
 
+
     # 遍歷指定目錄下的所有.ps檔案
     for filename in os.listdir(input_folder):
         if filename.endswith(".ps"):
             ps_file_path = os.path.join(input_folder, filename)
 
-            # 產生對應的.png檔案名稱
-            output_png_path = os.path.join(output_folder, os.path.splitext(filename)[0])
-
             # 執行轉換
-            convert_ps_to_png(ps_file_path, output_png_path)
+            convert_ps_to_png(ps_file_path, output_folder)
+
+
+    # 遍歷資料夾內的所有檔案
+    # for filename in os.listdir(input_folder):
+    #     if filename.endswith(".png"):  # 檢查是否是 .png 檔案
+    #         file_path = os.path.join(input_folder, filename)  # 檔案的完整路徑
+    #         os.remove(file_path)  # 刪除檔案
+
+
+# -------------------test--------------------
+# from PIL import Image
+
+# ps_file_path = "/home/xiangwei/chien/rnafold/datacreate/own_S08_11_pictures/2_ss.ps"
+# output_png_path = "2_ss.png"
+
+# img = Image.open(ps_file_path)
+# img.save(output_png_path)

@@ -34,10 +34,10 @@ def RNAfold(site_data_name, site_data, index_col, sequence_col):
 if __name__ == '__main__':
      ###
     # doing the RNAfold for given dataframe by own data
-#     site_data_name_11 = "own_S08_11_original"
-#     site_data_11 = pd.read_csv("own_S08_11_original.csv",index_col=[0])
-#     site_data_11.reset_index(inplace=True)
-#     output_list_11,output_energy_11 = RNAfold(site_data_name_11, site_data_11,'index','sequence')
+    site_data_name_11 = "own_S08_11"
+    site_data_11 = pd.read_csv("own_S08_11.csv",index_col=[0])
+    site_data_11.reset_index(inplace=True)
+    output_list_11,output_energy_11 = RNAfold(site_data_name_11, site_data_11,'index','sequence')
 
 #     site_data_11['RNAfold'] = output_list_11
 #     site_data_11['RNAfold_energy'] = output_energy_11
@@ -53,10 +53,10 @@ if __name__ == '__main__':
 #     site_data_09_wt.to_csv("own_S09_09_WT.csv")
 
 #--------------------------------------------------------------------------------------------------------------
-    site_data_name_up45down9 = "up45down9"
-    site_data_up45down9 = pd.read_csv("origin_add_up45down9_modi_prune_order.csv", index_col=[0])
-    site_data_up45down9.reset_index(inplace=True)
-    output_list_up45down9, output_energy_up45down9 = RNAfold(site_data_name_up45down9, site_data_up45down9,'index','upstream_45_downstream_9')
+    # site_data_name_up45down9 = "up45down9"
+    # site_data_up45down9 = pd.read_csv("origin_add_up45down9_modi_prune_order.csv", index_col=[0])
+    # site_data_up45down9.reset_index(inplace=True)
+    # output_list_up45down9, output_energy_up45down9 = RNAfold(site_data_name_up45down9, site_data_up45down9,'index','upstream_45_downstream_9')
 
     # site_data_up45down9['RNAfold'] = output_list_up45down9
     # site_data_up45down9['RNAfold_energy'] = output_energy_up45down9

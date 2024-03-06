@@ -27,9 +27,10 @@ if __name__ == "__main__":
     # site_data.to_csv(f'{name}.csv')
     # ---------------------------------------------------------------------------------------
 
-    path = '/home/xiangwei/chien/rnafold/datacreate/origin_add_up45down9_modi_prune_order.csv'
+    path = '/home/xiangwei/chien/rnafold/datacreate/origin_add_up45down9_markregion.csv'
     name = 'up45down9'
-    site_data = modify_special_case(path)
+    # site_data = modify_special_case(path)
+    site_data = pd.read_csv(path)
 
     reference_data = pd.read_excel('/home/xiangwei/chien/rnafold/datacreate/2019_Nat Microbiol_Ju_full-length RNa profiling reveals pervasive bidirectional transcription terminators in bacteria_TSS annotation.xlsx', header=1)
     print(reference_data)

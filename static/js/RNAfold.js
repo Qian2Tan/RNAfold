@@ -42,7 +42,10 @@ function ajax_function(datatable) {
                     { data: 'sequence', title: 'sequence' },
                     // { data: 'sequence_modi_prune', title: 'sequence_modi_prune' },
                     { data: 'RNAfold_energy', title: 'RNAfold_energy' },
-                    { data: 'mark_region (1 based)', title: 'mark_region(1 based)'},
+                    { data: 'mark_region (1 based)', title: 'mark_region (1 based)'},
+                    { data: 'continue_U', title: "5' continue_U"},
+                    { data: 'continue_A', title: "3' continue_A"},
+                    { data: 'continue_pair', title: 'continue_pair'},
                     {
                         data: null,
                         title: 'Detail',
@@ -91,6 +94,9 @@ function ajax_function(datatable) {
                     { data: 'RNAfold_energy(up45 down9)', title: 'RNAfold_energy(up45 down9)' },
                     { data: 'RNAfold_energy(TTS sequence new)', title: 'RNAfold_energy(TTS sequence)'},
                     { data: 'mark_region (1 based)', title: 'mark_region(1 based)'},
+                    { data: 'continue_U', title: "5' continue_U"},
+                    { data: 'continue_A', title: "3' continue_A"},
+                    { data: 'continue_pair', title: 'continue_pair'},
                     {
                         data: null,
                         title: 'Detail',
@@ -136,7 +142,7 @@ function ajax_function(datatable) {
                 $.ajax({
                     headers: { 'X-CSRFToken': csrf_token },
                     type: "POST",
-                    url: "RNAfold/web_tool/get_png/",
+                    url: "/RNAfold/web_tool/get_png/",
                     data: pictureData,
                     processData: false,  // 禁止 jQuery 將 FormData 轉換為字串
                     contentType: false,  // 禁止 jQuery 設置 Content-Type header

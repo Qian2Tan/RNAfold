@@ -12,12 +12,12 @@ def web(request):
 def read_csv(request):
     version = request.POST['version']
 
-    path = f"/rnafold/static/csv_result/{version}.csv"
+    path = f"/home/xiangwei/chien/rnafold/static/csv_result/{version}.csv"
     site_data = pd.read_csv(path)
     site_data.fillna('', inplace=True)
 
     def mark_sequence(row):
-        print(row['mark_region (1 based)'])
+        # print(row['mark_region (1 based)'])
         if row['mark_region (1 based)'] == 'special case' or row['mark_region (1 based)'] == '-' or row['mark_region (1 based)'] == 'logic out case':
             return row
         else:
@@ -70,7 +70,7 @@ def get_picture(request):
     print(picture_index)
 
     file_name = f"{picture_index}_ss.png"
-    path = f"/rnafold/static/picture/{version}_pictures_png/{file_name}"
+    path = f"/home/xiangwei/chien/rnafold/static/picture/{version}_pictures_png/{file_name}"
     with open(path, 'rb') as f:
         image_data = f.read()
     encoded_image = base64.b64encode(image_data).decode('utf-8')

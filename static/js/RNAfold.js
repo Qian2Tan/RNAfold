@@ -31,6 +31,7 @@ function ajax_function(datatable) {
                     { data: 'index', title: 'index' },
                     { data: 'genome_site', title: 'genome_site' },
                     { data: 'direction', title: 'direction' },
+                    { data: 'common', title: 'common'},
                     // { data: 'TTS_intensity', title: 'TTS_intensity' },
                     // { data: 'TTS_upstream_RNA_coverage', title: 'TTS_upstream_RNA_coverage' },
                     // { data: 'TTS_downstream_RNA_coverage', title: 'TTS_downstream_RNA_coverage' },
@@ -43,8 +44,8 @@ function ajax_function(datatable) {
                     // { data: 'sequence_modi_prune', title: 'sequence_modi_prune' },
                     { data: 'RNAfold_energy', title: 'RNAfold_energy' },
                     { data: 'mark_region (1 based)', title: 'mark_region (1 based)'},
-                    { data: 'continue_U', title: "5' continue_U"},
-                    { data: 'continue_A', title: "3' continue_A"},
+                    { data: 'continue_A', title: "5' continue_A"},
+                    { data: 'continue_U', title: "3' continue_U"},
                     { data: 'continue_pair', title: 'continue_pair'},
                     {
                         data: null,
@@ -68,6 +69,7 @@ function ajax_function(datatable) {
             };
 
             // 根據 selectData 的值動態初始化不同的 DataTable
+            //paper table
             if (selectData['version'] === 'up45down9') {
 
                 $('#siteTable').empty(); // empty in case the columns change
@@ -94,8 +96,8 @@ function ajax_function(datatable) {
                     { data: 'RNAfold_energy(up45 down9)', title: 'RNAfold_energy(up45 down9)' },
                     { data: 'RNAfold_energy(TTS sequence new)', title: 'RNAfold_energy(TTS sequence)'},
                     { data: 'mark_region (1 based)', title: 'mark_region(1 based)'},
-                    { data: 'continue_U', title: "5' continue_U"},
-                    { data: 'continue_A', title: "3' continue_A"},
+                    { data: 'continue_A', title: "5' continue_A"},
+                    { data: 'continue_U', title: "3' continue_U"},
                     { data: 'continue_pair', title: 'continue_pair'},
                     {
                         data: null,

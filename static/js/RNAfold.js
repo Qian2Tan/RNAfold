@@ -49,7 +49,7 @@ function ajax_function(datatable) {
                     { data: 'continue_pair', title: 'continue_pair'},
                     {
                         data: null,
-                        title: 'Detail',
+                        title: 'Picture',
                         render: function (data, type, row, meta) {
                             if (type === 'display') {
                                 return '<button class="btn btn-primary picture-button" data-id="' + meta.row + '">Detail</button>';
@@ -101,7 +101,7 @@ function ajax_function(datatable) {
                     { data: 'continue_pair', title: 'continue_pair'},
                     {
                         data: null,
-                        title: 'Detail',
+                        title: 'Picture',
                         render: function (data, type, row, meta) {
                             if (type === 'display') {
                                 return '<button class="btn btn-primary picture-button" data-id="' + meta.row + '">Detail</button>';

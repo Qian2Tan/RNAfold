@@ -32,6 +32,20 @@ function ajax_function(datatable) {
                     { data: 'genome_site', title: 'genome_site' },
                     { data: 'direction', title: 'direction' },
                     { data: 'common', title: 'common'},
+                    {
+                        data: null,
+                        title: 'IGV Detail',
+                        render: function (data, type, row, meta) {
+                            if (type === 'display') {
+                                var version = selectData['version'];
+                                var id = meta.row;
+                                var href = "/RNAfold/web_tool/" + version + "/" + id + "/"; // 修改這裡的 URL 路徑為你的 detail_view 的 URL
+
+                                return '<a href="' + href + '" class="btn btn-primary" target="_blank">IGV</a>';
+                            }
+                            return '';
+                        }
+                    },
                     // { data: 'TTS_intensity', title: 'TTS_intensity' },
                     // { data: 'TTS_upstream_RNA_coverage', title: 'TTS_upstream_RNA_coverage' },
                     // { data: 'TTS_downstream_RNA_coverage', title: 'TTS_downstream_RNA_coverage' },

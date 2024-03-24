@@ -9,7 +9,8 @@ def create_html(name, df):
 
         index_name = name + "_" + str(index)
         # bed_line = name + "\t" + str(genome_site) + "\t" + str(genome_site) + "\t" + common  # 內文
-        bed_line = "gi|556503834|ref|NC_000913.3|\t" + str(genome_site -1 ) + "\t" + str(genome_site) + "\t" + common  # 內文
+        # 第一欄目前只能是reference name
+        bed_line = "gi|556503834|ref|NC_000913.3|\t" + str(genome_site -1 ) + "\t" + str(genome_site) + "\t" + name + ": " + common  # 內文
 
         with open("/home/xiangwei/chien/rnafold/datacreate/tmp.bed",'w') as file:
             file.write(bed_line)
@@ -30,7 +31,7 @@ def create_html(name, df):
 
 
 if __name__ == "__main__":
-    name = "S08_11"
+    name = "S09_09_WT"
     site_data = pd.read_csv(f"{name}_common.csv")
 
     create_html(name, site_data)

@@ -81,3 +81,11 @@ def get_picture(request):
     }
 
     return JsonResponse(response)
+
+@csrf_exempt
+def giv_web(request, version, id):
+    version = version[4:]
+    foldername = f"{version}_html"
+    filename = f"{version}_{id}.html"
+    # return render(request, 'your_app/detail_template.html', {'filename': filename})
+    return render(request, f"{foldername}/{filename}")
